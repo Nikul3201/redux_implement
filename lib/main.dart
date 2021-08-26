@@ -18,51 +18,9 @@ void main() {
   );
 
   print("initialState : ${store.state}");
-
   runApp(StoreProvider<AppState>(store: store, child: MyHomePage()));
 
-  // runApp(MyHomePage(
-  //   store: store,
-  // ));
 }
-
-// class MyHomePage extends StatelessWidget {
-//   Store<AppState> store;
-//
-//   MyHomePage({this.store});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: "Redux implement",
-//       home: Scaffold(
-//         appBar: AppBar(title: Text("Book Data")),
-//         body: StoreConnector<AppState, List<Books>>(
-//           converter: (Store<AppState> store) => store.state?.bookState?.books ?? List<Books>(),
-//           builder: (context, List<Books> books) {
-//             return Center(
-//               child: FlatButton(
-//                 onPressed: () {
-//                   try {
-//                     print(getBookData());
-//                     // StoreProvider.of<AppState>(context).dispatch(getBookData);
-//                     print("initialState : $books");
-//                   } catch (e) {
-//                     print(e.toString());
-//                   }
-//                 },
-//                 child: Text("Book Data"),
-//                 color: Colors.blue,
-//                 textColor: Colors.white,
-//               ),
-//             );
-//           }
-//         ),
-//       ),
-//     );
-//   }
-//
-// }
 
 
 class MyHomePage extends StatefulWidget {
@@ -154,6 +112,16 @@ class postBookDataScreen extends StatelessWidget {
   final titleController = TextEditingController();
   final priceController = TextEditingController();
 
+  // Future<void> getVersion() async {
+  //   String platformVersion;
+  //
+  //   try {
+  //     platformVersion = await PlatformCode.platformVersion;
+  //   }catch(e) {
+  //     print(e.toString());
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -186,7 +154,8 @@ class postBookDataScreen extends StatelessWidget {
                   child: Text("Post Data"),
                   color: Colors.green,
                   textColor: Colors.white,
-              )
+              ),
+              Text('Version: '),
             ],
           ),
         )
@@ -201,13 +170,22 @@ class postBookDataScreen extends StatelessWidget {
     // ));
 
 
-    StoreProvider.of<AppState>(context).dispatch(postBookData(titleController.text,int.parse(priceController.text)));
+    StoreProvider.of<AppState>(context).dispatch(
+        postBookData(titleController.text,int.parse(priceController.text))
+    );
     Navigator.pushNamed(context, '/');
   }
 }
 
 
-
+//
+// class PlatformCode {
+//   static const MethodChannel _channel = const MethodChannel('platform_version');
+//   static Future<String> get platformVersion async {
+//     final String version = await _channel.invokeMethod('getPlaformVersion');
+//     return version;
+//   }
+// }
 
 
 

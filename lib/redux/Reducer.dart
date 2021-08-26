@@ -8,7 +8,7 @@ final booksReducers = combineReducers<BookState>([
 
 
 BookState _appendBooksData(BookState state, AppendBookDataAction action){
-  // print('got state of BookState is :: '+action.books.toString());
-  BookState book = state ?? new BookState();
-  return book.copyWith(books: action.books);
+  print('got state of BookState is :: '+action.books.toString());
+  BookState bookState = state ?? new BookState();
+  return bookState.copyWith(books: action.books);
 }
